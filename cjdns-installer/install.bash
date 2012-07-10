@@ -2,6 +2,8 @@
 
 pushd /tmp
 
+  export EDITOR=vi
+
   yaourt --version > /dev/null
   if [ $? != 0 ]
   then
