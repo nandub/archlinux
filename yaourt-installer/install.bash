@@ -1,8 +1,10 @@
 #!/bin/bash
 
-wget https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz -q
+echo Installing Yaourt package
 
 pushd /tmp
+
+  wget https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
 
   tar xf package-query.tar.gz
   cd package-query
