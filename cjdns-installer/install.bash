@@ -4,7 +4,7 @@ pushd /tmp
 
   export EDITOR=vi
 
-  yaourt --version > /dev/null
+  yaourt --version 2> /dev/null
   if [ $? != 0 ]
   then
     curl https://raw.github.com/nandub/archlinux/master/yaourt-installer/install.bash | bash
