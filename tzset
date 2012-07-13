@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Information Taken from https://wiki.archlinux.org/index.php/TIMEZONE#Time_Zone
+
+pushd /
+
+TIMEZONE=$1
+if [ "${TIMEZONE}" == "" ]; then
+  # Default Central Time
+  TIMEZONE=America/Chicago
+fi
+
+if [ "${HARDWARECLOCK}" == "" ]; then
+  # Default to UTC
+  HARDWARECLOCK=UTC
+fi
+
+sed -i -e "s/^TIMEZONE=.*/TIMEZONE=\"${TIMEZONE//\//\\/}\"/g" \
+       -e "s/^HARDWARECLOCK=.*/HARDWARECLOCK=\"$HARDWARECLOCK\"/g" \
+       /etc/rc.conf
+
+ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
+
+popd
