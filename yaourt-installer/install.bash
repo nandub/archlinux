@@ -2,7 +2,7 @@
 
 echo Installing Yaourt package
 
-sudo pacman -Sy cmake git fakeroot gcc make
+sudo pacman -Sy cmake git fakeroot gcc make patch
 
 pushd /tmp
 
