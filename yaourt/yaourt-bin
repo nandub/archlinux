@@ -4,7 +4,9 @@ echo Installing Yaourt package
 
 sudo pacman -Sy cmake git fakeroot gcc make patch
 
-pushd /tmp
+mkdir -p `pwd`/tmp
+
+pushd `pwd`/tmp
 
   wget https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz -q
 
