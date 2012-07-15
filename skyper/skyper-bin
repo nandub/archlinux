@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mkdir -p `pwd`/skyper-build
+
+pushd `pwd`/skyper-build
+
+  sudo pacman -Sy bitlbee xorg-xauth xorg-server-xvfb x11vnc skype dbus-glib python-dbus \
+          python2-dbus python-gobject2 python2-gobject2
+  yaourt skype4py
+
+popd
+
+rm -rf `pwd`/skyper-build

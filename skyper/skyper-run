@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ "`ps aux | grep '^skype .* /usr/bin/skype' | grep -v 'grep\|screen'`" == "" ]; then
+    kill `cat ~/skype.pid 2>/dev/null` 2>/dev/null
+    kill `cat ~/skyped.pid 2>/dev/null` 2>/dev/null
+    kill `cat ~/x11vnc.pid 2>/dev/null` 2>/dev/null
+    xvfb-run --auth ~/.Xauthority -n 0 -s "-screen 0 1024x768x16" /usr/bin/skype &
+    echo $! > ~/skype.pid
+    sleep 5
+fi
+
+pid="`cat ~/skyped.pid 2>/dev/null`"
+if ! kill -0 $pid 2>/dev/null; then
+    DISPLAY=:0.0 skyped -n >/dev/null 2> /dev/null &
+    echo $! > ~/skyped.pid
+fi
+
+pid="`cat ~/x11vnc.pid 2>/dev/null`"
+if ! kill -0 $pid 2>/dev/null; then
+    # Do the following to create a password
+    # x11vnc -storepasswd.. follow the prompt and save passes file to ~/.vnc/passwd
+    x11vnc -rfbauth ~/.vnc/passwd -display :0 >/dev/null 2>/dev/null &
+    echo $! > ~/x11vnc.pid
+fi
