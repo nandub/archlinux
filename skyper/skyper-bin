@@ -6,6 +6,9 @@ pushd `pwd`/skyper-build
 
   sudo pacman -Sy bitlbee xorg-xauth xorg-server-xvfb x11vnc skype dbus-glib python-dbus \
           python2-dbus python-gobject2 python2-gobject2
+
+  curl https://raw.github.com/nandub/archlinux/master/yaourt/yaourt-bin | bash
+  
   yaourt skype4py
 
 popd
