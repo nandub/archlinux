@@ -2,7 +2,7 @@
 
 echo Installing Yaourt package
 
-sudo pacman -Sy base-devel cmake git
+sudo pacman -Sy base-devel cmake git wget
 
 mkdir -p `pwd`/tmp
 
