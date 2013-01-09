@@ -1,0 +1,68 @@
+#!/bin/bash
+
+#The following instruction were shamesly taken from 
+#http://michael.otacoo.com/manuals/arch-linux/installation-2/installation/
+
+set -e
+
+. $HOME/.archrc
+
+ROOT_PART=${ROOT_PARTITION}
+SWAP_PART=${SWAP_PARTITION}
+HOME_PART=${HOME_PARTITION}
+
+#Check network connection
+ping -c 3 www.google.com
+if [ ! $? = 0 ]; then
+  echo "You do not have a network connection.
+  echo Go to
+  https://wiki.archlinux.org/index.php/Beginners%27_Guide#Setup_network_in_the_live_installation_environment
+  to setup connection"
+  exit 1
+fi
+
+#Create partitions
+bash ./partme
+
+#You need to mount the partitions to allow installation of the packages on disk.
+mount /dev/$ROOT_PART /mnt
+mkdir /mnt/home && mount /dev/$HOME_PART /mnt/home
+
+#Package installation can be done with this command once partitions are mounted.
+#If you need to go through a proxy, you need special settings for pacman
+#http://michael.otacoo.com/manuals/arch-linux/proxy-settings/
+pacstrap /mnt base base-devel
+
+#This allows to mount automatically all the partitions defined.
+genfstab -p /mnt >> /mnt/etc/fstab
+
+#Then say that the newly-installed system is.
+arch-chroot /mnt
+
+#This is used to allow loading kernel modules.
+mkinitcpio -p linux
+
+#Install bootloader
+pacman -S syslinux
+
+#Change syslinux.conf
+sed "s/$HOME_PART/$ROOT_PART/" -i /boot/syslinux/syslinux.cfg
+
+#Finally you just need to install files (-i), to set up the boot flag (-a) and to
+#install MBR boot code (-m).
+syslinux-install_update -iam
+
+#Setup a root password with
+passwd
+
+#Leave chroot environment.
+exit
+
+#Unmount all the partitions
+umount /mnt/home
+umount /mnt
+
+echo Remove the disk media. And then you should be able to run ArchLinux
+pause
+reboot
+

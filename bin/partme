@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+if [ ! -x "/sbin/parted" ]; then
+  echo "This script requires /sbin/parted to run!" >&2
+  exit 1
+fi
+
+while true; do
+  read -p "Warning! This will partition and format any unformatted storage volumes! Are you sure? " yn
+  case $yn in
+       [Yy]* ) break;;
+       [Nn]* ) exit;;
+       * ) echo "Please answer yes or no.";;
+  esac
+done
+
+DISKS=${DISKS_TO_PARTITION}
+
+for i in ${DISKS}; do
+  echo "Creating partitions on /dev/sd${i} ..."
+#  parted -a optimal --script /dev/sd${i} -- mktable gpt
+  parted -a optimal --script /dev/sd${i} -- mkpart ext4 2 40GB
+  parted -a optimal --script /dev/sd${i} -- mkpart linux-swap 40GB 42GB
+  parted -a optimal --script /dev/sd${i} -- mkpart ext4 42GB 100%
+  sleep 1
+  echo "Formatting /dev/sd${i}1 ..."
+  mkfs.ext4 /dev/sd${i}1 &
+  echo "Formatting /dev/sd${i}3 ..."
+  mkfs.ext4 /dev/sd${i}3 &
+  echo "Make swap /dev/sd${i}2"
+  mkswap /dev/sd${i}2 && swapon /dev/sd${i}2 &
+done

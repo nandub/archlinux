@@ -1,0 +1,12 @@
+
+#Customize environments
+
+export DISKS_TO_PARTITION=a
+
+export ROOT_PARTITION=sda1
+export SWAP_PARTITION=sda2
+export HOME_PARTITION=sda3
+
+export ROOT_SIZE=40GB
+export SWAP_SIZE=2GB
+export HOME_SIZE=*
