@@ -9,7 +9,6 @@ url="https://www.dropbox.com/"
 license=('custom:CC-BY-ND-3' 'GPL')
 depends=('libnotify' 'nautilus' 'hicolor-icon-theme')
 makedepends=('python2-docutils' 'python2' 'pygtk')
-install=${pkgname}.install
 options=('!libtool' '!emptydirs')
 source=("https://linux.dropbox.com/packages/${pkgname}-${pkgver}.tar.bz2")
 md5sums=('ee08ccedccd4c49f1464957146e14d26')
