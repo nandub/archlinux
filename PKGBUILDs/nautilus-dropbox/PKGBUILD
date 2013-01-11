@@ -1,6 +1,6 @@
 # Maintainer: nandub <dev@nandub-dev.tk>
 
-pkgname=nautilus-dropbox-latest
+pkgname=nautilus-dropbox
 pkgver=1.4.0
 pkgrel=1
 pkgdesc="Dropbox for Linux - Nautilus extension"
