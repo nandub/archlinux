@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#The following instruction were shamesly taken from 
+#http://michael.otacoo.com/manuals/arch-linux/installation-2/installation/
+
+set -e
+
+source $HOME/.archrc
+
+echo $HOSTNAME > /etc/hostname
+ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+touch /etc/locale.conf
+locale | cat > /etc/locale.conf
+
+locale-gen
+
+#This is used to allow loading kernel modules.
+mkinitcpio -p linux
+
+#Install bootloader
+pacman -S syslinux
+
+#Change syslinux.conf
+echo sed "s/$HOME_PART/$ROOT_PART/" -i /boot/syslinux/syslinux.cfg
+sed "s/$HOME_PART/$ROOT_PART/" -i /boot/syslinux/syslinux.cfg
+
+#Finally you just need to install files (-i), to set up the boot flag (-a) and to
+#install MBR boot code (-m).
+syslinux-install_update -iam
+
+#Setup a root password with
+passwd
+
+#Leave chroot environment.
+exit
+

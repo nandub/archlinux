@@ -39,30 +39,11 @@ genfstab -p /mnt >> /mnt/etc/fstab
 #Then say that the newly-installed system is.
 arch-chroot /mnt
 
-#This is used to allow loading kernel modules.
-mkinitcpio -p linux
-
-#Install bootloader
-pacman -S syslinux
-
-#Change syslinux.conf
-sed "s/$HOME_PART/$ROOT_PART/" -i /boot/syslinux/syslinux.cfg
-
-#Finally you just need to install files (-i), to set up the boot flag (-a) and to
-#install MBR boot code (-m).
-syslinux-install_update -iam
-
-#Setup a root password with
-passwd
-
-#Leave chroot environment.
-exit
-
 #Unmount all the partitions
 umount /mnt/home
 umount /mnt
 
 echo Remove the disk media. And then you should be able to run ArchLinux
-pause
+read to reboot Press Enter
 reboot
 
