@@ -6,7 +6,7 @@ pkgdesc="Gale is instant messaging software"
 arch=('i686')
 url="http://www.gale.org"
 license=('GPL2')
-depends=('bash' 'adns' 'gc' 'openssl')
+depends=('bash' 'gc' 'openssl' 'adns-ipv6')
 makedepends=('git')
 
 _gitroot=https://github.com/nandub/gale.git
