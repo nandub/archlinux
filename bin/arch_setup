@@ -36,6 +36,9 @@ pacstrap /mnt base base-devel
 #This allows to mount automatically all the partitions defined.
 genfstab -p /mnt >> /mnt/etc/fstab
 
+#Copy script to setup server
+cp arch_setup_chroot /mnt/home
+
 #Then say that the newly-installed system is.
 arch-chroot /mnt
 
