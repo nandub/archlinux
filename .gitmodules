@@ -1,0 +1,3 @@
+[submodule "aur4/primesieve"]
+	path = aur4/primesieve
+	url = ssh+git://aur@aur4.archlinux.org:22/primesieve.git/
