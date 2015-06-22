@@ -5,7 +5,7 @@
 
 set -e
 
-. $HOME/.archrc
+. .archrc
 
 ROOT_PART=${ROOT_PARTITION}
 SWAP_PART=${SWAP_PARTITION}
@@ -36,7 +36,8 @@ pacstrap /mnt base base-devel
 #This allows to mount automatically all the partitions defined.
 genfstab -p /mnt >> /mnt/etc/fstab
 
-#Copy script to setup server
+#Copy scripts to configure instance
+cp .archrc /mnt/home
 cp arch_setup_chroot /mnt/home
 
 #Then say that the newly-installed system is.
