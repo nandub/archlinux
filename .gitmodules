@@ -1,9 +1,0 @@
-[submodule "aur4/primesieve"]
-	path = aur4/primesieve
-	url = ssh+git://aur@aur4.archlinux.org:22/primesieve.git/
-[submodule "aur4/adns-ipv6"]
-	path = aur4/adns-ipv6
-	url = ssh+git://aur@aur4.archlinux.org:22/adns-ipv6.git/
-[submodule "aur4/gale-git"]
-	path = aur4/gale-git
-	url = ssh+git://aur@aur4.archlinux.org:22/gale-git.git/
